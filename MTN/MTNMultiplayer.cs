@@ -263,7 +263,9 @@ namespace MTN {
         }
 
         protected void setMTNCustom(IncomingMessage msg) {
-            Memory.loadCustomFarmType(msg.Data[0]);
+            // convert byte to int
+            Memory.loadCustomFarmType(BitConverter.ToInt32(msg.Data, 0));
+
             Utilities.additionalMapLoad();
         }
 
