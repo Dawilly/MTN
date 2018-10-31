@@ -39,20 +39,14 @@
       <HintPath>.\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="GalaxyCSharp">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Stardew Valley\GalaxyCSharp.dll</HintPath>
+      <HintPath>$(GamePath)\GalaxyCSharp.dll</HintPath>
     </Reference>
-    <Reference Include="Netcode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
     <Reference Include="StardewModdingAPI.Toolkit">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Stardew Valley\StardewModdingAPI.Toolkit.dll</HintPath>
-    </Reference>
-    <Reference Include="StardewModdingAPI.Toolkit.CoreInterfaces">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Stardew Valley\StardewModdingAPI.Toolkit.CoreInterfaces.dll</HintPath>
+      <HintPath Condition="Exists('$(GamePath)\smapi-internal')">$(GamePath)\smapi-internal\StardewModdingAPI.Toolkit.dll</HintPath>
+      <HintPath Condition="!Exists('$(GamePath)\smapi-internal')">$(GamePath)\StardewModdingAPI.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
