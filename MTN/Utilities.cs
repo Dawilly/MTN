@@ -136,7 +136,9 @@ namespace MTN
 
         public static string composeModList() {
             string results = "";
-            foreach (IManifest manifest in Memory.instance.Helper.ModRegistry.GetAll()) {
+            foreach (IModInfo modInfo in Memory.instance.Helper.ModRegistry.GetAll())
+            {
+                var manifest = modInfo.Manifest;
                 results += manifest.Name + "%%" + manifest.Version.ToString() + "%%" + manifest.UniqueID + "%%" + manifest.Author + "%%";
                 if (manifest.ContentPackFor != null) {
                     results += "CPF:" + manifest.ContentPackFor.UniqueID + "%%";
