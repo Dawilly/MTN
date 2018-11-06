@@ -1,21 +1,14 @@
 ﻿using System;
 using System.IO;
-using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using Harmony;
-using System.Reflection;
 using System.Collections.Generic;
-using System.Xml;
-using StardewValley.Objects;
 using Newtonsoft.Json;
 using MTN.FarmInfo;
 using StardewValley.Menus;
 using Microsoft.Xna.Framework.Graphics;
-using StardewValley.Locations;
-using xTile.Dimensions;
-using xTile;
 using StardewValley.Buildings;
 using Netcode;
 using MTN.Menus;
@@ -94,41 +87,6 @@ namespace MTN {
                     Monitor.Log($"NetRef: {Game1.locations[i].Root} (This map is always active)");
                 }
             }
-        }
-
-        //Unused. To be implemented elsewhere.
-        private void listBannedMods(string command, string[] args) {
-            Memory.multiplayer.printBlackList();
-        }
-
-        //Unused. To be implemented elsewhere.
-        private void manageBlacklist(string command, string[] args) {
-            if (Game1.multiplayerMode != 2) {
-                Monitor.Log("Access Denied.", LogLevel.Error);
-                return;
-            }
-            if (command == "banmod") {
-                if (args.Length < 1) {
-                    Monitor.Log("Invalid input. Syntax: banmod <uniqueId>", LogLevel.Error);
-                    Monitor.Log(" - uniqueId: The mod's uniqueId");
-                    return;
-                } else { 
-                    Monitor.Log($"Adding mod with UniqueId {args[0]} to blacklist");
-                    Memory.multiplayer.addToBlackList(args[0]);
-                }
-            } else if (command == "unbanmod") {
-                if (args.Length < 1) {
-                    Monitor.Log("Invalid input. Syntax: unbanmod <uniqueId>", LogLevel.Error);
-                    Monitor.Log(" - uniqueId: The mod's uniqueId");
-                    return;
-                } else {
-                    Monitor.Log($"Removing mod with UniqueId {args[0]} to blacklist");
-                    Memory.multiplayer.removeFromBlackList(args[0]);
-                }
-            } else {
-                return;
-            }
-            return;
         }
 
         private void swapScienceLab_afterSave(object sender, EventArgs e) {

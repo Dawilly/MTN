@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Blacklist.cs" />
     <Compile Include="CustomSaveSerializer.cs" />
     <Compile Include="PlayerMod.cs" />
     <Compile Include="MapTypes\AdvancedScienceHouse.cs" />
