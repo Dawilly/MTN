@@ -11,9 +11,9 @@ namespace MTN.Patches.NetBuildingRefPatch {
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions) {
 
             var codes = new List<CodeInstruction>(instructions);
-            codes[6].opcode = OpCodes.Nop;
+            codes[8].opcode = OpCodes.Nop;
             codes[10].opcode = OpCodes.Call;
-            codes[10].operand = AccessTools.Method(typeof(Utilities), "getBuildingFromFarmsByName", new Type[] { typeof(string) });
+            codes[10].operand = AccessTools.Method(typeof(Utilities), "GetBuildingFromFarmsByName", new Type[] { typeof(string) });
             return codes.AsEnumerable();
         }
     }

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using SObject = StardewValley.Object;
 using xTile;
+using StardewValley.Buildings;
+using StardewValley.Network;
 
 namespace MTN
 {
@@ -35,9 +37,9 @@ namespace MTN
                     switch (m.mapType)
                     {
                         case "Farm":
-                            newMap = new Farm(mapAssetKey, m.Location);
-                            Game1.locations.Add((Farm)newMap);
-                            Memory.farmMaps.Add(new additionalMap<Farm>(m, Game1.locations.Last() as Farm));
+                            //newMap = new Farm(mapAssetKey, m.Location);
+                            //Game1.locations.Add((Farm)newMap);
+                            Memory.farmMaps.Add(new additionalMap<Farm>(m, Game1.locations.Where(x => x.Name == m.Location).FirstOrDefault() as Farm));
                             break;
                         case "FarmCave":
                             newMap = new FarmCave(mapAssetKey, m.Location);
@@ -111,6 +113,22 @@ namespace MTN
             };
             list.Add(o);
             return list;
+        }
+
+        public static Building GetBuildingFromFarmsByName(string name)
+        {
+            int i;
+            for (i = 0; i < Memory.farmMaps.Count; i++)
+            {
+                foreach (Building building in Memory.farmMaps[i].Map.buildings)
+                {
+                    if (building.nameOfIndoors == name)
+                    {
+                        return building;
+                    }
+                }
+            }
+            return null;
         }
     }
 

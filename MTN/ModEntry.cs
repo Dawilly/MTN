@@ -13,6 +13,9 @@ using StardewValley.Buildings;
 using Netcode;
 using MTN.Menus;
 using MTN.MapTypes;
+using xTile.Dimensions;
+using Microsoft.Xna.Framework;
+using StardewValley.Locations;
 
 namespace MTN {
     /// <summary>The mod entry point.</summary>
@@ -151,7 +154,8 @@ namespace MTN {
         /// <summary>
         /// Generates and applies the Harmony Patches.
         /// </summary>
-        private void initalizePatches() {
+        private void initalizePatches()
+        {
             //The list of harmony patches. Disable one by commenting out the line.
             patches = new List<Patch>
             {
@@ -167,9 +171,10 @@ namespace MTN {
                 new Patch("Farm", "resetLocalState", false, true, false, typeof(Patches.FarmPatch.resetLocalStatePatch)),
                 new Patch("Farm", "UpdateWhenCurrentLocation", false, true, true, typeof(Patches.FarmPatch.UpdateWhenCurrentLocationPatch)),
                 new Patch("Game1", "loadForNewGame", false, true, false, typeof(Patches.Game1Patch.loadForNewGamePatch)),
+                new Patch("Game1", "newDayAfterFade", false, true, false, typeof(Patches.Game1Patch.newDayAfterFadePatch)),
                 new Patch("GameLocation", "loadObjects", true, true, false, typeof(Patches.GameLocationPatch.LoadObjectPatch)),
                 new Patch("GameLocation", "startEvent", true, false, false, typeof(Patches.GameLocationPatch.startEventPatch)),
-                // new Patch("Network.NetBuildingRef", "get_Value", false, false, true, typeof(Patches.NetBuildingRefPatch.ValueGetter)),
+                new Patch("Network.NetBuildingRef", "get_Value", false, false, true, typeof(Patches.NetBuildingRefPatch.ValueGetter)),
                 new Patch("NPC", "updateConstructionAnimation", false, true, true, typeof(Patches.NPCPatch.updateConstructionAnimationPatch)),
                 new Patch("Object", "totemWarpForReal", true, true, false, typeof(Patches.ObjectsPatch.totemWarpForRealPatch)),
                 new Patch("Characters.Pet", "setAtFarmPosition", true, true, false, typeof(Patches.PetPatch.setAtFarmPositionPatch)),
@@ -387,18 +392,24 @@ namespace MTN {
                         //if (Game1.multiplayerMode == 1) return;
                         if (m.mapType == "Farm") {
                             Farm workingFarm = (Farm)Game1.getLocationFromName(m.Location);
-                            if (workingFarm == null) return;
+                            if (workingFarm == null) continue;
+
                             foreach (Building b in workingFarm.buildings) {
+                                b.load();
                                 if (b.indoors.Value == null) continue;
                                 foreach (Warp w in b.indoors.Value.warps) {
                                     NetString warp = Helper.Reflection.GetField<NetString>(w, "targetName").GetValue();
                                     warp.Value = m.Location;
                                 }
+
+                                if (b.daysOfConstructionLeft.Value <= 0 && b.indoors.Value is Cabin)
+                                {
+                                    Game1.player.slotCanHost = true;
+                                }
                             }
                         }
                     }
                 }
-
             }
         }
     }

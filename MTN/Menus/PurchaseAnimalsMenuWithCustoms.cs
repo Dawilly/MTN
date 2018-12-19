@@ -37,8 +37,8 @@ namespace MTN.Menus {
         public ClickableTextureComponent farmSelectBackButton;
 
         public PurchaseAnimalsMenuWithCustoms(List<SObject> stock) : base (stock) {
-            farmSelectForwardButton = new ClickableTextureComponent(new XNARectangle((Game1.viewport.Width / 2 - menuWidth / 2) + 256, (Game1.viewport.Height / 2 - menuHeight / 2) + 300, 48, 44), Game1.mouseCursors, new XNARectangle(365, 495, 12, 11), 4f, false);
-            farmSelectBackButton = new ClickableTextureComponent(new XNARectangle((Game1.viewport.Width / 2 - menuWidth / 2) + 64, (Game1.viewport.Height / 2 - menuHeight / 2) + 300, 48, 44), Game1.mouseCursors, new XNARectangle(352, 495, 12, 11), 4f, false);
+            farmSelectForwardButton = new ClickableTextureComponent(new XNARectangle(this.xPositionOnScreen + this.width - 180, this.yPositionOnScreen + this.height + 120 - borderWidth, 48, 44), Game1.mouseCursors, new XNARectangle(365, 495, 12, 11), 4f, false);
+            farmSelectBackButton = new ClickableTextureComponent(new XNARectangle(this.xPositionOnScreen + this.width -400, this.yPositionOnScreen + this.height + 120 - borderWidth, 48, 44), Game1.mouseCursors, new XNARectangle(352, 495, 12, 11), 4f, false);
             currentFarmIndex = 0;
             setNewActiveFarmMap(true);
 

@@ -37,7 +37,7 @@ namespace MTN.Patches.FarmHousePatch
                             if (!(__instance is Cabin)) {
                                 __instance.furniture.Add(new Furniture(1792, Utility.PointToVector2(__instance.getFireplacePoint())));
                             }
-                            __instance.objects.Add(new Vector2(3f, 7f), new Chest(0, new List<Item>
+                            if (!__instance.objects.ContainsKey(new Vector2(3f, 7f))) __instance.objects.Add(new Vector2(3f, 7f), new Chest(0, new List<Item>
                             {
                                 new StardewValley.Object(472, 15, false, -1, 0)
                             }, new Vector2(3f, 7f), true));

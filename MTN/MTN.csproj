@@ -30,6 +30,25 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="2.2.0" />
@@ -40,6 +59,10 @@
     </Reference>
     <Reference Include="GalaxyCSharp">
       <HintPath>$(GamePath)\GalaxyCSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Stardew Valley, Version=1.3.6892.22429, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Stardew Valley\Stardew Valley.exe</HintPath>
     </Reference>
     <Reference Include="StardewModdingAPI.Toolkit">
       <HintPath Condition="Exists('$(GamePath)\smapi-internal')">$(GamePath)\smapi-internal\StardewModdingAPI.Toolkit.dll</HintPath>
@@ -53,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CustomSaveSerializer.cs" />
+    <Compile Include="Patches\Game1Patch\newDayAfterFadePatch.cs" />
     <Compile Include="PlayerMod.cs" />
     <Compile Include="MapTypes\AdvancedScienceHouse.cs" />
     <Compile Include="Menus\CarpenterMenuHouseStyle.cs" />

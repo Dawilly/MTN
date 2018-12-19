@@ -1,5 +1,6 @@
 ﻿using Galaxy.Api;
 using Harmony;
+using MTN.FarmInfo;
 using Netcode;
 using StardewValley;
 using StardewValley.Buildings;
@@ -8,6 +9,7 @@ using StardewValley.Network;
 using StardewValley.SDKs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MTN {
 
@@ -162,15 +164,36 @@ namespace MTN {
             NetRoot<GameLocation> root = readObjectFull<GameLocation>(msg.Reader);
             if (isAlwaysActiveLocation(root.Value)) {
                 Memory.instance.Monitor.Log("Recieving Map: " + root.Value.Name + " as Always Active.");
-                for (int i = 0; i < Game1.locations.Count; i++) {
-                    if (Game1.locations[i].Equals(root.Value)) {
-                        Game1.locations[i] = root.Value;
-                        if (Game1.locations[i] is BuildableGameLocation) {
-                            foreach (Building b in (Game1.locations[i] as BuildableGameLocation).buildings) {
-                                b.load();
+
+                var locations = Game1.locations.Where(x => x.Equals(root.Value));
+
+                if (Game1.locations.Count(x => x.Equals(root.Value)) > 0)
+                {
+                    for (int i = 0; i < Game1.locations.Count; i++)
+                    {
+                        if (Game1.locations[i].Equals(root.Value))
+                        {
+                            Game1.locations[i] = root.Value;
+                            if (Game1.locations[i] is BuildableGameLocation)
+                            {
+                                foreach (Building b in (Game1.locations[i] as BuildableGameLocation).buildings)
+                                {
+                                    b.load();
+                                }
                             }
+                            break;
                         }
-                        break;
+                    }
+                }
+                else
+                {
+                    Game1.locations.Add(root.Value);
+                    if (Game1.locations.Last() is BuildableGameLocation)
+                    {
+                        foreach (Building b in (Game1.locations.Last() as BuildableGameLocation).buildings)
+                        {
+                            b.load();
+                        }
                     }
                 }
             }
