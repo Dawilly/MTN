@@ -156,9 +156,6 @@ namespace MTN {
             sendLocation(peer, Game1.getFarm());
             sendLocation(peer, Game1.getLocationFromName("FarmHouse"));
 
-            //Send Game1.whichFarm early. To load additional maps you fool.
-            sendMessage(peer, 30, Game1.serverHost.Value, new object[] { Game1.whichFarm });
-
             //Custom maps
             //Send the data of the custom maps, the ones that are always active (Farms)
             for (int i = 56; i < Game1.locations.Count; i++) {
@@ -166,6 +163,9 @@ namespace MTN {
                     sendLocation(peer, Game1.locations[i]);
                 }
             }
+
+            //Send Game1.whichFarm early. To load additional maps you fool.
+            sendMessage(peer, 30, Game1.serverHost.Value, new object[] { Game1.whichFarm });
 
             //Send the state of the world, the host player, and the other farmhands.
             sendMessage(peer, new OutgoingMessage(1, Game1.serverHost.Value, new object[]
@@ -204,7 +204,7 @@ namespace MTN {
             bool inIntro = Game1.currentMinigame is Intro || Game1.Date.DayOfMonth == 0;
             bool isWedding = Game1.CurrentEvent != null && Game1.CurrentEvent.isWedding;
             bool isSleeping = Game1.newDaySync != null && !Game1.newDaySync.hasFinished();
-            bool isDemolishing = Game1.player.team.buildingLock.IsLocked();
+            bool isDemolishing = Game1.player.team.buildLock.IsLocked();
             return !Game1.isFestival() && !isWedding && !inIntro && !isSleeping && !isDemolishing;
         }
 

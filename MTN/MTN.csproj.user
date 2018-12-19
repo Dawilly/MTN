@@ -3,4 +3,15 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <StartProgram>C:\Program Files %28x86%29\Steam\steamapps\common\Stardew Valley\StardewModdingAPI.exe</StartProgram>
+    <StartWorkingDirectory>C:\Program Files %28x86%29\Steam\steamapps\common\Stardew Valley</StartWorkingDirectory>
+    <EnableUnmanagedDebugging>true</EnableUnmanagedDebugging>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <StartProgram>C:\Program Files %28x86%29\Steam\steamapps\common\Stardew Valley\StardewModdingAPI.exe</StartProgram>
+    <StartWorkingDirectory>C:\Program Files %28x86%29\Steam\steamapps\common\Stardew Valley</StartWorkingDirectory>
+    <StartAction>Program</StartAction>
+  </PropertyGroup>
 </Project>
